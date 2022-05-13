@@ -6,7 +6,7 @@ Gem::Specification.new do |spec|
   spec.authors = ["Brooke Kuhlmann"]
   spec.email = ["brooke@alchemists.io"]
   spec.homepage = "https://www.alchemists.io/projects/http-fake"
-  spec.summary = ""
+  spec.summary = "Provides a fake but equivalent implementation of the HTTP gem for test suites."
   spec.license = "Hippocratic-2.1"
 
   spec.metadata = {

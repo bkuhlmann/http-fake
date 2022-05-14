@@ -2,4 +2,13 @@
 
 == 0.0.0 (2022-05-15)
 
-* Added initial implementation.
+* Added HTTP gem - Brooke Kuhlmann
+* Added Mustermann gem - Brooke Kuhlmann
+* Added builder - Brooke Kuhlmann
+* Added client - Brooke Kuhlmann
+* Added connector - Brooke Kuhlmann
+* Added gem specification summary - Brooke Kuhlmann
+* Added project skeleton - Brooke Kuhlmann
+* Added requester - Brooke Kuhlmann
+* Added responder - Brooke Kuhlmann
+* Updated Reek configuration to ignore respond to missing method use - Brooke Kuhlmann

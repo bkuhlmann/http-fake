@@ -1,31 +1,184 @@
+:http_link: link:https://github.com/httprb/http[HTTP]
+
 :toc: macro
 :toclevels: 5
 :figure-caption!:
 
-= Http Fake
+= HTTP Fake
+
+HTTP Fake is a companion to the {http_link} gem when you want a convenient way to test HTTP requests
+by swapping out your _real_ HTTP client with this _fake_ HTTP client. Using a fake allows you to
+speed up and simplify your test suite by answering fake responses without hitting a live API. You'll
+still want to test against a live API, eventually, within your integration tests but at a lower
+level, like your unit tests, you can use this gem instead. This gem is particularly useful when
+using _Dependency Injection_, especially when coupled with the
+link:https://www.alchemists.io/projects/auto_injector[Auto Injector] gem.
 
 toc::[]
 
 == Features
 
-== Screencasts
+* Provides a fake HTTP client as a testing companion to the {http_link} gem.
+* Supports the following HTTP verbs: CONNECT, DELETE, GET, HEAD, OPTIONS, PATCH, POST, PUT, and
+  TRACE.
+* Uses a simple DSL for defining HTTP endpoints, headers, bodies, and statuses.
+* Works well with objects that use _Dependency Injection_.
+* Speeds up your test suite when you don't need a live API.
 
 == Requirements
 
 . link:https://www.ruby-lang.org[Ruby].
+. {http_link}.
 
 == Setup
 
-To set up the project, run:
+To install within an existing project, run:
+
+[source,bash]
+----
+bundle add http-fake
+----
+
+You'll want to ensure this gem is part of your _test_ group since it's
+only meant to aid in writing specs.
+
+== Usage
+
+This gem works with any test framework and, for demonstration purposes, we'll assume you're using
+link:https://rspec.info[RSpec]. You can adapt these examples to your test framework of choice. A
+simple spec might look the this:
+
+[source,ruby]
+----
+RSpec.describe Endpoint do
+  subject(:endpoint) { described_class.new http: }
+
+  let :http do
+    HTTP::Fake::Client.new do
+      get "/customers" do
+        headers["Content-Type"] = "application/json"
+        status 200
+
+        <<~JSON
+          {
+            "customers": [
+              {"name": "Jill Smith"}
+            ]
+          }
+        JSON
+      end
+    end
+  end
+
+  describe "#customers" do
+    it "answers customers array when successful" do
+      response = endpoint.customers
+      expect(response.parse).to eq(customers: [{name: "Jill Smith"}])
+    end
+  end
+end
+----
+
+As you can see, our _fake_ `http` client has been defined and injected into our `endpoint` subject.
+When the fake is defined, the path, headers, status, and body are registered as well. This
+allows the fake to match against your real implementation's URL path and swap out making a real HTTP
+call with the canned response defined by the fake. When asking the endpoint for its customers, we
+get back the response as defined by the fake with all of the normal capabilities as if we were using
+the real HTTP client. This works because this gem uses
+link:https://github.com/sinatra/mustermann[Mustermann] for pattern matching against the routes you
+define. This means you can defined routes that are explicit -- as shown above -- or fuzzy based on
+your testing needs. You can also define multiple endpoints for the same fake in case your
+implementation needs to test multiple endpoints at once. Example:
+
+[source,ruby]
+----
+let :http do
+  HTTP::Fake::Client.new do
+    connect("/") { status 200 }
+
+    head("/") { status 200 }
+    options("/") { status 204 }
+
+    get "/customers" do
+      headers["Content-Type"] = "application/json"
+      status 200
+
+      <<~JSON
+        {
+          "customers": [
+            {"name": "Jill Smith"}
+          ]
+        }
+      JSON
+    end
+
+    post "/customers" do
+      headers["Content-Type"] = "application/json"
+      status 201
+      {}
+    end
+
+    put "/customers/1" do
+      headers["Content-Type"] = "application/json"
+      status 200
+    end
+
+    patch "/customers/1" do
+      headers["Content-Type"] = "application/json"
+      status 200
+    end
+
+    delete("/customers/1") { status 204 }
+    trace("/") { status 200 }
+  end
+end
+----
+
+Lastly, in the examples above, I've been showing how you can work with JSON responses but you might
+want to use other MIME types. For example, XML:
+
+[source,ruby]
+----
+HTTP::Fake::Client.new do
+  get "/customers" do
+    headers["Content-Type"] = "application/xml"
+    status 200
+
+    <<~XML
+      <customer>
+        <id>1</id>
+        <name>Jill Smith</name>
+      </customer>
+    XML
+  end
+end
+----
+
+Plain text would work too:
+
+[source,ruby]
+----
+HTTP::Fake::Client.new do
+  get "/customers" do
+    headers["Content-Type"] = "text/plain"
+    status 200
+
+    "1 - Jill Smith"
+  end
+end
+----
+
+Since you have the ability to define your own headers and status codes, you can also test failure
+response behavior as well. I'll leave that up to you to explore and experiment with further.
+
+== Development
+
+Clone the repository and then run:
 
 [source,bash]
 ----
 bin/setup
 ----
-
-== Usage
-
-== Development
 
 You can also use the IRB console for direct access to all objects:
 

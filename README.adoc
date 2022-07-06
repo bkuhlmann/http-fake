@@ -6,23 +6,16 @@
 
 = HTTP Fake
 
-HTTP Fake is a companion to the {http_link} gem when you want a convenient way to test HTTP requests
-by swapping out your _real_ HTTP client with this _fake_ HTTP client. Using a fake allows you to
-speed up and simplify your test suite by answering fake responses without hitting a live API. You'll
-still want to test against a live API, eventually, within your integration tests but at a lower
-level, like your unit tests, you can use this gem instead. This gem is particularly useful when
-using _Dependency Injection_, especially when coupled with the
-link:https://www.alchemists.io/projects/auto_injector[Auto Injector] gem.
+HTTP Fake is a companion to the {http_link} gem when you want a convenient way to test HTTP requests by swapping out your _real_ HTTP client with this _fake_ HTTP client. Using a fake allows you to improve the performance of your test suite by answering fake responses without hitting a live API. You'll still want to test against a live API, eventually, within your integration tests but at a lower level, like your unit tests, you can use this gem instead. This gem is particularly useful when using _Dependency Injection_, especially when coupled with the link:https://www.alchemists.io/projects/auto_injector[Auto Injector] gem.
 
 toc::[]
 
 == Features
 
 * Provides a fake HTTP client as a testing companion to the {http_link} gem.
-* Supports the following HTTP verbs: CONNECT, DELETE, GET, HEAD, OPTIONS, PATCH, POST, PUT, and
-  TRACE.
+* Supports the following HTTP verbs: CONNECT, DELETE, GET, HEAD, OPTIONS, PATCH, POST, PUT, and TRACE.
 * Uses a simple DSL for defining HTTP endpoints, headers, bodies, and statuses.
-* Works well with objects that use _Dependency Injection_.
+* Works well with objects that use Dependency Injection.
 * Speeds up your test suite when you don't need a live API.
 
 == Requirements
@@ -44,9 +37,7 @@ only meant to aid in writing specs.
 
 == Usage
 
-This gem works with any test framework and, for demonstration purposes, we'll assume you're using
-link:https://rspec.info[RSpec]. You can adapt these examples to your test framework of choice. A
-simple spec might look the this:
+This gem works with any test framework. For demonstration purposes, we'll assume you're using link:https://rspec.info[RSpec] but you can adapt these examples to your test framework of choice. A simple spec might look like this:
 
 [source,ruby]
 ----
@@ -79,16 +70,9 @@ RSpec.describe Endpoint do
 end
 ----
 
-As you can see, our _fake_ `http` client has been defined and injected into our `endpoint` subject.
-When the fake is defined, the path, headers, status, and body are registered as well. This
-allows the fake to match against your real implementation's URL path and swap out making a real HTTP
-call with the canned response defined by the fake. When asking the endpoint for its customers, we
-get back the response as defined by the fake with all of the normal capabilities as if we were using
-the real HTTP client. This works because this gem uses
-link:https://github.com/sinatra/mustermann[Mustermann] for pattern matching against the routes you
-define. This means you can defined routes that are explicit -- as shown above -- or fuzzy based on
-your testing needs. You can also define multiple endpoints for the same fake in case your
-implementation needs to test multiple endpoints at once. Example:
+As you can see, our _fake_ `http` client has been defined and injected into our `endpoint` subject. When the fake is defined, the path, headers, status, and body are registered as well. This allows the fake to match against your real implementation's URL path and swap out acquiring a real HTTP response with fake response instead. When asking the endpoint for its customers, we get back the fake response with all of the normal capabilities of the real HTTP client. This works because this gem uses link:https://github.com/sinatra/mustermann[Mustermann] for pattern matching against the routes you define and also means you can define routes that are explicit -- as shown above -- or fuzzy based on your testing needs.
+
+Here's an example where multiple endpoints are defined for the same fake in case your implementation needs to test multiple endpoints at once:
 
 [source,ruby]
 ----
@@ -134,13 +118,12 @@ let :http do
 end
 ----
 
-Lastly, in the examples above, I've been showing how you can work with JSON responses but you might
-want to use other MIME types. For example, XML:
+So far you've only seen usage of JSON responses but you might want to use other MIME types. For example, XML:
 
 [source,ruby]
 ----
 HTTP::Fake::Client.new do
-  get "/customers" do
+  get "/customers/1" do
     headers["Content-Type"] = "application/xml"
     status 200
 
@@ -164,6 +147,33 @@ HTTP::Fake::Client.new do
     status 200
 
     "1 - Jill Smith"
+    "2 - Tom Bombadill"
+  end
+end
+----
+
+You might even want to import a fixture which is especially handy when the response is verbose or needs to be reused in different ways. Example:
+
+[source,ruby]
+----
+# Single
+HTTP::Fake::Client.new do
+  get "/customers/1" do
+    headers["Content-Type"] = "application/json"
+    status 200
+    Bundler.root.join("spec/support/fixtures/customer.json").read
+  end
+end
+
+# Multiple
+HTTP::Fake::Client.new do
+  get "/customers" do
+    headers["Content-Type"] = "application/json"
+    status 200
+
+    <<~JSON
+      [#{Bundler.root.join("spec/support/fixtures/customer.json").read}]
+    JSON
   end
 end
 ----

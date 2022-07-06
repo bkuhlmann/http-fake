@@ -12,5 +12,9 @@ authors:
     orcid: https://orcid.org/0000-0002-5810-6268
 keywords:
  - ruby
+ - http
+ - fake
+ - rspec
+ - testing
 repository-code: https://github.com/bkuhlmann/http-fake
 repository-artifact: https://rubygems.org/gems/http-fake

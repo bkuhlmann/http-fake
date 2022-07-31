@@ -55,6 +55,13 @@ RSpec.describe HTTP::Fake::Builder do
     it_behaves_like "a request", :trace
   end
 
+  describe "#method_missing" do
+    it "fails invalid verb" do
+      expectation = proc { builder.bogus("/products") { "test" } }
+      expect(&expectation).to raise_error(NoMethodError, /undefined.+bogus/)
+    end
+  end
+
   describe "#request" do
     it "answers HTTP response when responders exist" do
       builder.get("/products") { "test" }

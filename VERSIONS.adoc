@@ -1,5 +1,13 @@
 = Versions
 
+== 0.2.0 (2022-08-13)
+
+* Added Circle CI SimpleCov artifacts - Brooke Kuhlmann
+* Added builder method missing spec - Brooke Kuhlmann
+* Updated SimpleCov configuration to use filters and minimum coverage - Brooke Kuhlmann
+* Updated to Musterman 3.0.0 - Brooke Kuhlmann
+* Updated to Zeitwerk 2.6.0 - Brooke Kuhlmann
+
 == 0.1.0 (2022-07-17)
 
 * Added citation keywords - Brooke Kuhlmann

@@ -6,7 +6,7 @@
 
 = HTTP Fake
 
-HTTP Fake is a companion to the {http_link} gem when you want a convenient way to test HTTP requests by swapping out your _real_ HTTP client with this _fake_ HTTP client. Using a fake allows you to improve the performance of your test suite by answering fake responses without hitting a live API. You'll still want to test against a live API, eventually, within your integration tests but at a lower level, like your unit tests, you can use this gem instead. This gem is particularly useful when using _Dependency Injection_, especially when coupled with the link:https://www.alchemists.io/projects/auto_injector[Auto Injector] gem.
+HTTP Fake is a companion to the {http_link} gem when you want a convenient way to test HTTP requests by swapping out your _real_ HTTP client with this _fake_ HTTP client. Using a fake allows you to improve the performance of your test suite by answering fake responses without hitting a live API. You'll still want to test against a live API, eventually, within your integration tests but at a lower level, like your unit tests, you can use this gem instead. This gem is particularly useful when using _Dependency Injection_, especially when coupled with the link:https://www.alchemists.io/projects/infusible[Infusible] gem.
 
 toc::[]
 

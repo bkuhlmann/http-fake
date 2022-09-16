@@ -183,10 +183,12 @@ response behavior as well. I'll leave that up to you to explore and experiment w
 
 == Development
 
-Clone the repository and then run:
+To contribute, run:
 
 [source,bash]
 ----
+git clone https://github.com/bkuhlmann/http-fake
+cd http-fake
 bin/setup
 ----
 

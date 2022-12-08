@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require "zeitwerk"
 require "http"
+require "zeitwerk"
 
 Zeitwerk::Loader.new.then do |loader|
   loader.push_dir "#{__dir__}/.."

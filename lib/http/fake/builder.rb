@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require "uri"
 require "refinements/hashes"
+require "uri"
 
 module HTTP
   module Fake

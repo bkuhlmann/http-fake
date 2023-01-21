@@ -161,7 +161,7 @@ HTTP::Fake::Client.new do
   get "/customers/1" do
     headers["Content-Type"] = "application/json"
     status 200
-    Bundler.root.join("spec/support/fixtures/customer.json").read
+    SPEC_ROOT.join("support/fixtures/customer.json").read
   end
 end
 
@@ -172,7 +172,7 @@ HTTP::Fake::Client.new do
     status 200
 
     <<~JSON
-      [#{Bundler.root.join("spec/support/fixtures/customer.json").read}]
+      [#{SPEC_ROOT.join("support/fixtures/customer.json").read}]
     JSON
   end
 end

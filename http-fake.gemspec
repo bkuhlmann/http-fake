@@ -5,14 +5,14 @@ Gem::Specification.new do |spec|
   spec.version = "1.0.1"
   spec.authors = ["Brooke Kuhlmann"]
   spec.email = ["brooke@alchemists.io"]
-  spec.homepage = "https://www.alchemists.io/projects/http-fake"
+  spec.homepage = "https://alchemists.io/projects/http-fake"
   spec.summary = "Provides a fake but equivalent implementation of the HTTP gem for test suites."
   spec.license = "Hippocratic-2.1"
 
   spec.metadata = {
     "bug_tracker_uri" => "https://github.com/bkuhlmann/http-fake/issues",
-    "changelog_uri" => "https://www.alchemists.io/projects/http-fake/versions",
-    "documentation_uri" => "https://www.alchemists.io/projects/http-fake",
+    "changelog_uri" => "https://alchemists.io/projects/http-fake/versions",
+    "documentation_uri" => "https://alchemists.io/projects/http-fake",
     "funding_uri" => "https://github.com/sponsors/bkuhlmann",
     "label" => "HTTP Fake",
     "rubygems_mfa_required" => "true",

@@ -6,3 +6,5 @@ detectors:
   BooleanParameter:
     exclude:
     - HTTP::Fake::Builder#respond_to_missing?
+  LongParameterList:
+    enabled: false

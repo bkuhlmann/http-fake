@@ -4,7 +4,7 @@
 require "bundler/setup"
 Bundler.require :tools
 
-require_relative "../lib/http/fake"
+require "http/fake"
 require "irb"
 
 IRB.start __FILE__

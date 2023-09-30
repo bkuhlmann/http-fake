@@ -13,5 +13,6 @@ end
 module HTTP
   # Main namespace.
   module Fake
+    def self.loader(registry = Zeitwerk::Registry) = registry.loader_for __FILE__
   end
 end

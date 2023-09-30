@@ -4,8 +4,9 @@ require "http"
 require "zeitwerk"
 
 Zeitwerk::Loader.new.then do |loader|
-  loader.push_dir "#{__dir__}/.."
   loader.inflector.inflect "http" => "HTTP"
+  loader.tag = "http-fake"
+  loader.push_dir "#{__dir__}/.."
   loader.setup
 end
 

@@ -13,6 +13,8 @@ end
 module HTTP
   # Main namespace.
   module Fake
-    def self.loader(registry = Zeitwerk::Registry) = registry.loader_for __FILE__
+    def self.loader registry = Zeitwerk::Registry
+      @loader ||= registry.loaders.find { |loader| loader.tag == "http-fake" }
+    end
   end
 end

@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-require "refinements/hashes"
+require "refinements/hash"
 require "uri"
 
 module HTTP
   module Fake
     # Builds the response for a request.
     class Builder
-      using Refinements::Hashes
+      using Refinements::Hash
 
       ALLOWED_VERBS = /\A(connect|delete|get|head|options|patch|post|put|trace)\z/
 

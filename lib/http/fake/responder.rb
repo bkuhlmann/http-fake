@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 require "mustermann"
-require "refinements/strings"
+require "refinements/string"
 
 module HTTP
   module Fake
     # Handles an outgoing response.
     class Responder
-      using Refinements::Strings
+      using Refinements::String
 
       attr_reader :headers
 

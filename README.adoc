@@ -13,7 +13,7 @@ toc::[]
 == Features
 
 * Provides a fake HTTP client as a testing companion to the {http_link} gem.
-* Supports the following HTTP verbs: CONNECT, DELETE, GET, HEAD, OPTIONS, PATCH, POST, PUT, and TRACE.
+* Supports the following HTTP verbs: CONNECT, DELETE, GET, HEAD, OPTIONS, PATCH, POST, PURGE, PUT, and TRACE.
 * Uses a simple DSL for defining HTTP endpoints, headers, bodies, and statuses.
 * Works well with objects that use Dependency Injection.
 * Speeds up your test suite when you don't need a live API.

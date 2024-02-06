@@ -47,6 +47,10 @@ RSpec.describe HTTP::Fake::Builder do
     it_behaves_like "a request", :post
   end
 
+  describe "#purge" do
+    it_behaves_like "a request", :purge
+  end
+
   describe "#put" do
     it_behaves_like "a request", :put
   end

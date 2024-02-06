@@ -9,7 +9,7 @@ module HTTP
     class Builder
       using Refinements::Hash
 
-      ALLOWED_VERBS = /\A(connect|delete|get|head|options|patch|post|put|trace)\z/
+      ALLOWED_VERBS = /\A(connect|delete|get|head|options|patch|post|purge|put|trace)\z/
 
       attr_reader :requests
 

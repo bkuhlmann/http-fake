@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.metadata = {
     "bug_tracker_uri" => "https://github.com/bkuhlmann/http-fake/issues",
     "changelog_uri" => "https://alchemists.io/projects/http-fake/versions",
-    "documentation_uri" => "https://alchemists.io/projects/http-fake",
+    "homepage_uri" => "https://alchemists.io/projects/http-fake",
     "funding_uri" => "https://github.com/sponsors/bkuhlmann",
     "label" => "HTTP Fake",
     "rubygems_mfa_required" => "true",

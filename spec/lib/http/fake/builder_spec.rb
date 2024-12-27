@@ -77,7 +77,7 @@ RSpec.describe HTTP::Fake::Builder do
 
       expect(&expectation).to raise_error(
         StandardError,
-        %(No route for GET /products in responders: {"get"=>[]}.)
+        %(No route for GET /products in responders: {"get" => []}.)
       )
     end
   end

@@ -11,9 +11,10 @@ module HTTP
       end
 
       def call **arguments
-        response.new defaults.merge(
-          request: build_request(**arguments),
-          **arguments.slice(:headers, :version, :body, :status)
+        response.new(
+          **defaults,
+          **arguments.slice(:headers, :version, :body, :status),
+          request: build_request(arguments)
         )
       end
 
@@ -23,7 +24,7 @@ module HTTP
 
       def defaults = {headers: {}, version:, status: 200}
 
-      def build_request(**arguments) = request.new arguments.slice :verb, :uri
+      def build_request(arguments) = request.new(**arguments.slice(:verb, :uri))
     end
   end
 end
